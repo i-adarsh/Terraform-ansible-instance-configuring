@@ -1,0 +1,6 @@
+- name: Configuring Web Server
+  hosts: all
+  remote_user: ec2-user
+  become: yes
+  roles:
+        - role: config_web

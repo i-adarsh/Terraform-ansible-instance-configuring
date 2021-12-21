@@ -1,0 +1,25 @@
+---
+# tasks file for config_web
+  # - name: Wait for system to become reachable
+  #   wait_for_connection:
+  - name: Installing Apache Webserver
+    package:
+        name: "httpd"
+        state: present
+    become: yes
+
+  - name: Copying Files
+    template:
+        src: "index.html.j2"
+        dest: "/var/www/html/index.html"
+        owner: "apache"
+        mode: 0640
+        group: "apache"
+        setype: "httpd_sys_content_t"
+    become: yes
+
+  - name: Starting Apache Webserver
+    service: 
+        name: "httpd"
+        state: "restarted"
+    become: yes
